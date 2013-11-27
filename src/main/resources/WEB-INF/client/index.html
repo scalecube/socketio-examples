@@ -40,8 +40,8 @@
 		
 		// Sends a message to the server via socket
 		function send(message) {
-		 var count = document.sendform.messagecount.value;
-			for(var i=0;i<count;i++){
+		 	var count = document.sendform.messagecount.value;
+			for (var i = 0; i < count; i++) {
 			   socket.send(message);
 			   log('<span class="send-msg">>>> ' + message + '</span>');
 			}
@@ -65,9 +65,17 @@
 			socket.disconnect();
 		}
 		
-		function connect(){
-			socket = io.connect('http://' + document.sendform.address.value, {
-	        	'transports' : [ 'websocket', 'xhr-polling' ],
+		function connect() {
+			var protocol = document.sendform.ssl.checked ? 'https://' : 'http://';
+			var transports = [];
+			if (document.sendform.websocket.checked) {
+				transports.push('websocket');
+			}
+			if (document.sendform.xhrpolling.checked) {
+				transports.push('xhr-polling');
+			}
+			socket = io.connect(protocol + document.sendform.address.value, {
+	        	'transports' : transports,
 	            'reconnection delay' : 2000,
 	            'force new connection' : true,
 	       	});	
@@ -94,24 +102,20 @@
 	
 	<h1>Socket.IO for Netty Test Page (without SSL)</h1>
 	
-	<br>
-	
     <form method="POST" name="sendform" action="">            
     	Address:<br>
-    	<input class="address-input" type="text" name="address" value='localhost:4810' />
-    	<br>
+    	<input class="address-input" type="text" name="address" value='localhost:4810' /><br>
+    	<input type="checkbox" name="ssl" />SSL (Note: default SSL address is localhost:4815)<br>
+    	Supported protocols:<br>
+    	<input type="checkbox" name="websocket" checked="checked" />WebSocket<br>
+    	<input type="checkbox" name="xhrpolling" checked="checked" />XHR-Polling<br>
     	<input type="BUTTON" value="Connect" onClick="connect()" class="sendform-submit"/>
-        <input type="BUTTON" value="Disconnect" onClick="disconnect()" class="sendform-submit"/>
-        <br>
+        <input type="BUTTON" value="Disconnect" onClick="disconnect()" class="sendform-submit"/><br>
        	Message:<br>      
-        <input class="sendform-input" type="text" name="msg"
-        	value='{"greetings":"Hello World!"}'  />
-        <br>
+        <input class="sendform-input" type="text" name="msg" value='{"greetings":"Hello World!"}'/><br>
         Count:<br>
-        <input class="sendform-input" type="text" name="messagecount" value='1'  />
-        <br>
+        <input class="sendform-input" type="text" name="messagecount" value='1' /><br>
         <input type="BUTTON" value="Send" onClick="submitSendForm()" class="sendform-submit"/>
-        
     </form>
     
 	<p>
