@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.socketio.netty.example;
+package org.socketio.netty.example.client;
 
 import static org.jboss.netty.channel.Channels.pipeline;
 
 import java.net.InetSocketAddress;
-import java.util.concurrent.Executors;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 
 import org.jboss.netty.bootstrap.ServerBootstrap;
+import org.jboss.netty.channel.ChannelFactory;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
@@ -34,9 +34,9 @@ import org.jboss.netty.handler.ssl.SslHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SocketIOClientContentServer {
+public class SocketIOClient {
 	
-	private static final Logger log = LoggerFactory.getLogger(SocketIOClientContentServer.class);
+	private static final Logger log = LoggerFactory.getLogger(SocketIOClient.class);
 	
 	private ServerBootstrap bootstrap;
 	
@@ -44,11 +44,11 @@ public class SocketIOClientContentServer {
 	private final String appPath;
 	private final SSLContext sslContext;
 
-	public SocketIOClientContentServer(final int port, String basePath) {
+	public SocketIOClient(final int port, String basePath) {
 		this(port, basePath, null);
 	}
 	
-	public SocketIOClientContentServer(final int port, String basePath, SSLContext sslContext) {
+	public SocketIOClient(final int port, String basePath, SSLContext sslContext) {
 		this.port = port;
 		this.appPath = basePath;
 		this.sslContext = sslContext;
@@ -56,8 +56,8 @@ public class SocketIOClientContentServer {
 
 	public void start() {
 		// Configure the server.
-		bootstrap = new ServerBootstrap(new NioServerSocketChannelFactory(
-				Executors.newCachedThreadPool(), Executors.newCachedThreadPool()));
+		ChannelFactory channelFactory = new NioServerSocketChannelFactory();
+		bootstrap = new ServerBootstrap(channelFactory);
 
 		// Set up the event pipeline factory.
 		bootstrap.setPipelineFactory(new ChannelPipelineFactory() {
@@ -65,7 +65,7 @@ public class SocketIOClientContentServer {
 				ChannelPipeline pipeline = pipeline();
 				
 				// SSL
-				if (sslContext != null) {
+				if (isSSL()) {
 					SSLEngine sslEngine = sslContext.createSSLEngine();
 					sslEngine.setUseClientMode(false);
 					SslHandler sslHandler = new SslHandler(sslEngine);
@@ -88,12 +88,22 @@ public class SocketIOClientContentServer {
 		// Bind and start to accept incoming connections.
 		InetSocketAddress addr = new InetSocketAddress(port);
 		bootstrap.bind(addr);
-
-		log.info("Socket.IO client started at port: {} on path: {}", port, appPath);
+		
+		log.info("Socket.IO client started at: {}://localhost:{}{}/index.html", 
+				new Object[] {getProtocol(), port, appPath});
 	}
 	
 	public void stop() {
 		bootstrap.releaseExternalResources();
-		log.info("Socket.IO client stopped at port: {} on path: {}", port, appPath);
+		log.info("Socket.IO client stopped at: {}://localhost:{}{}/index.html", 
+				new Object[] {getProtocol(), port, appPath});
+	}
+	
+	private String getProtocol() {
+		return isSSL() ? "https" : "http";
+	}
+	
+	private boolean isSSL() {
+		return sslContext != null;
 	}
 }

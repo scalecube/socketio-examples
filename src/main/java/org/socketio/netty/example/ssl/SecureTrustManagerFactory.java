@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.socketio.netty.example;
+package org.socketio.netty.example.ssl;
 
 import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyStore;
