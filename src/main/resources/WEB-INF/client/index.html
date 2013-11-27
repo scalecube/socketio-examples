@@ -4,15 +4,15 @@
 	<title>Socket.IO Client</title>
 	<style>
 		body { 
-			padding:20px;
+			padding: 10px;
 		}
 		#console { 
 			list-style-type:none; 
-			width: 600px; 
-			height: 400px; 
+			width: 460px; 
+			height: 320px; 
 			overflow: auto; 
 			border:1px solid #999;
-			padding: 20px;
+			padding: 10px;
 		}
 		#console li { 
 			border-bottom: 1px solid #ccc;
@@ -22,8 +22,8 @@
 		.connect-msg {color:green;}
 		.disconnect-msg {color:red;}
 		.send-msg {color:#888}
-		.address-input {margin-right: 20px; width: 516px;}
-		.sendform-input {margin-right: 20px; width: 516px;}
+		.address-input {width: 480px;}
+		.sendform-input {width: 480px;}
 		.sendform-submit {width: 100px;} 
 		.time {}
 	</style>
@@ -83,7 +83,7 @@
 			
 			// Add connect listener
 			socket.on('connect', function() {
-				log('<span class="connect-msg">Client has connected to the server via ' + socket.socket.transport.name + '!</span>');
+				log('<span class="connect-msg">Connected with ' + socket.socket.transport.name + '</span>');
 			});
 			
 			// Add a message listener
@@ -93,7 +93,7 @@
 			
 			// Add a disconnect listener
 			socket.on('disconnect', function() {
-				log('<span class="disconnect-msg">The client has disconnected!</span>');
+				log('<span class="disconnect-msg">Disconnected</span>');
 			});
 		}
 	</script>
@@ -106,9 +106,8 @@
     <form method="POST" name="sendform" action="">            
     	Address:<br>
     	<input class="address-input" type="text" name="address" value='localhost:4810' /><br>
-    	<input type="checkbox" name="ssl" />SSL (Note: default SSL address is localhost:4815)<br>
-    	Supported protocols:<br>
-    	<input type="checkbox" name="websocket" checked="checked" />WebSocket<br>
+    	<input type="checkbox" name="ssl" />SSL
+    	<input type="checkbox" name="websocket" checked="checked" />WebSocket
     	<input type="checkbox" name="xhrpolling" checked="checked" />XHR-Polling<br>
     	<input type="BUTTON" value="Connect" onClick="connect()" class="sendform-submit"/>
         <input type="BUTTON" value="Disconnect" onClick="disconnect()" class="sendform-submit"/><br>
@@ -120,7 +119,7 @@
     </form>
     
 	<p>
-		Messages will appear below:
+		Console:
 	</p>
 	
 	<ul id="console">
