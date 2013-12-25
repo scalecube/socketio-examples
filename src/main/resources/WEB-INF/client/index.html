@@ -71,6 +71,9 @@
 			if (document.sendform.websocket.checked) {
 				transports.push('websocket');
 			}
+			if (document.sendform.flashsocket.checked) {
+				transports.push('flashsocket');
+			}
 			if (document.sendform.xhrpolling.checked) {
 				transports.push('xhr-polling');
 			}
@@ -107,6 +110,7 @@
     	<input class="address-input" type="text" name="address" value='localhost:4810' /><br>
     	<input type="checkbox" name="ssl" />SSL
     	<input type="checkbox" name="websocket" checked="checked" />WebSocket
+    	<input type="checkbox" name="flashsocket" checked="checked" />FlashSocket
     	<input type="checkbox" name="xhrpolling" checked="checked" />XHR-Polling<br>
     	<input type="BUTTON" value="Connect" onClick="connect()" class="sendform-submit"/>
         <input type="BUTTON" value="Disconnect" onClick="disconnect()" class="sendform-submit"/><br>
