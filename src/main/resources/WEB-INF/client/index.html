@@ -29,7 +29,7 @@
 	</style>
 	
 	<script src="js/socket.io/socket.io.js" charset="utf-8"></script>
-	<script src="js/date.format.js"></script>
+	<script src="js/moment.min.js"></script>
 	
 	<script>
 		// Create SocketIO instance
@@ -58,8 +58,7 @@
 		
 		// Returns string with current time
 		function getCurrentTime() {
-		    var now = new Date();
-		    return "<span class='time'>" +  now.format('HH:MM:ss.l') + "</span>";
+		    return "<span class='time'>" +  moment().format('HH:mm:ss.SSS') + "</span>";
 		}
 		
 		function disconnect(){
