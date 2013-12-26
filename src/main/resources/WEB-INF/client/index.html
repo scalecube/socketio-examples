@@ -67,6 +67,7 @@
 		
 		function connect() {
 			var protocol = document.sendform.ssl.checked ? 'https://' : 'http://';
+			var secure = document.sendform.ssl.checked ? true : false;
 			var transports = [];
 			if (document.sendform.websocket.checked) {
 				transports.push('websocket');
@@ -78,6 +79,7 @@
 				transports.push('xhr-polling');
 			}
 			socket = io.connect(protocol + document.sendform.address.value, {
+				'secure' : secure,
 	        	'transports' : transports,
 	            'reconnection delay' : 2000,
 	            'force new connection' : true,
