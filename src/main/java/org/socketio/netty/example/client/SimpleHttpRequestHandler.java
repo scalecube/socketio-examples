@@ -82,15 +82,15 @@ public class SimpleHttpRequestHandler extends OneToOneDecoder {
 		// Build the response object.
 		HttpResponse response = new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
 		response.setContent(buf);
-		response.setHeader(HttpHeaders.Names.CONTENT_TYPE, "text/html; charset=UTF-8");
+		response.headers().set(HttpHeaders.Names.CONTENT_TYPE, "text/html; charset=UTF-8");
 
 		if (!close) {
 			// There's no need to add 'Content-Length' header
 			// if this is the last response.
-			response.setHeader(HttpHeaders.Names.CONTENT_LENGTH, String.valueOf(buf.readableBytes()));
+			response.headers().set(HttpHeaders.Names.CONTENT_LENGTH, String.valueOf(buf.readableBytes()));
 		}
 
-		String cookieString = request.getHeader(HttpHeaders.Names.COOKIE);
+		String cookieString = request.headers().get(HttpHeaders.Names.COOKIE);
 		if (cookieString != null) {
 			CookieDecoder cookieDecoder = new CookieDecoder();
 			Set<Cookie> cookies = cookieDecoder.decode(cookieString);
@@ -100,7 +100,7 @@ public class SimpleHttpRequestHandler extends OneToOneDecoder {
 				for (Cookie cookie : cookies) {
 					cookieEncoder.addCookie(cookie);
 				}
-				response.addHeader(HttpHeaders.Names.SET_COOKIE, cookieEncoder.encode());
+				response.headers().add(HttpHeaders.Names.SET_COOKIE, cookieEncoder.encode());
 			}
 		}
 
@@ -115,9 +115,9 @@ public class SimpleHttpRequestHandler extends OneToOneDecoder {
 	
 	
 	private boolean isClose(final HttpRequest request) {
-		return HttpHeaders.Values.CLOSE.equalsIgnoreCase(request.getHeader(HttpHeaders.Names.CONNECTION)) ||
+		return HttpHeaders.Values.CLOSE.equalsIgnoreCase(request.headers().get(HttpHeaders.Names.CONNECTION)) ||
 			request.getProtocolVersion().equals(HttpVersion.HTTP_1_0) &&
-			!HttpHeaders.Values.KEEP_ALIVE.equalsIgnoreCase(request.getHeader(HttpHeaders.Names.CONNECTION));
+			!HttpHeaders.Values.KEEP_ALIVE.equalsIgnoreCase(request.headers().get(HttpHeaders.Names.CONNECTION));
 	}
 
 }
