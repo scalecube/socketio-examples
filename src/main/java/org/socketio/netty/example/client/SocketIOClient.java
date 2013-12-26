@@ -18,6 +18,7 @@ import org.jboss.netty.handler.codec.http.HttpResponseEncoder;
 import org.jboss.netty.handler.ssl.SslHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.socketio.netty.pipeline.ResourceHandler;
 
 public class SocketIOClient {
 	
@@ -62,6 +63,12 @@ public class SocketIOClient {
 				pipeline.addLast("decoder", new HttpRequestDecoder());
 				pipeline.addLast("aggregator", new HttpChunkAggregator(65536));
 				pipeline.addLast("encoder", new HttpResponseEncoder());
+				
+				// Flash resources
+				ResourceHandler resourceHandler = new ResourceHandler();
+				resourceHandler.addResource(appPath + "/js/socket.io/WebSocketMain.swf", "/WEB-INF/client/js/socket.io/WebSocketMain.swf");
+				resourceHandler.addResource(appPath + "/js/socket.io/WebSocketMainInsecure.swf", "/WEB-INF/client/js/socket.io/WebSocketMainInsecure.swf");
+				pipeline.addLast("flashResources", resourceHandler);
 				
 				// Web application
 				pipeline.addLast("httpPage", new SimpleHttpRequestHandler(appPath));
