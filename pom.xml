@@ -3,20 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.socketIo4Netty</groupId>
 	<artifactId>socketIo4Netty-examples</artifactId>
-	<version>1.0.11-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
-	<licenses>
-		<license>
-			<name>Apache v2</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-			<distribution>manual</distribution>
-		</license>
-	</licenses>
 
 	<dependencies>
 		<dependency>
@@ -71,41 +63,6 @@
 					<optimize>true</optimize>
 					<showDeprecations>true</showDeprecations>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.mycila.maven-license-plugin</groupId>
-				<artifactId>maven-license-plugin</artifactId>
-				<version>1.10.b1</version>
-				<configuration>
-					<basedir>${basedir}</basedir>
-					<header>${basedir}/header.txt</header>
-					<quiet>false</quiet>
-					<failIfMissing>true</failIfMissing>
-					<aggregate>false</aggregate>
-					<includes>
-						<include>src/**</include>
-					</includes>
-					<excludes>
-						<exclude>target/**</exclude>
-					</excludes>
-					<excludes>
-						<exclude>src/test/resources/WEB-INF/**</exclude>
-					</excludes>
-					<useDefaultExcludes>true</useDefaultExcludes>
-					<mapping>
-						<java>JAVADOC_STYLE</java>
-					</mapping>
-					<strictCheck>true</strictCheck>
-					<useDefaultMapping>true</useDefaultMapping>
-					<encoding>UTF-8</encoding>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
