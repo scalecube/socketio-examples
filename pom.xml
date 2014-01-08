@@ -14,7 +14,7 @@
 		<dependency>
 			<groupId>com.github.socketIo4Netty</groupId>
 			<artifactId>socketIo4Netty</artifactId>
-			<version>1.0.12-SNAPSHOT</version>
+			<version>1.0.14-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
