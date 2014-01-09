@@ -6,7 +6,7 @@ import org.socketio.netty.example.ssl.SecureSslContextFactory;
 public class ServerOverSslLauncher {
 	
 	private static final int SOCKETIO_PORT = 4815;
-	private static final String SOCKETIO_TRANSPORTS = "websocket,flashsocket,xhr-polling";
+	private static final String SOCKETIO_TRANSPORTS = "websocket,flashsocket,xhr-polling,jsonp-polling";
 	
 	public static void main(String[] args) {
 		SocketIOServer socketioOverSSLServer = new SocketIOServer();
