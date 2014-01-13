@@ -3,6 +3,8 @@ package org.socketio.netty.example.server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.socketio.netty.ISession;
+import org.socketio.netty.ISessionFuture;
+import org.socketio.netty.ISessionFutureListener;
 import org.socketio.netty.ISocketIOListener;
 
 public class EchoSocketIOListener implements ISocketIOListener {
@@ -28,7 +30,14 @@ public class EchoSocketIOListener implements ISocketIOListener {
 	}
 	
 	private void processReceivedMessage(final ISession client, final String message) {
-        client.send(message);  
+        ISessionFuture sessionFuture = client.send(message);
+        sessionFuture.addListener(new ISessionFutureListener() {
+			@Override
+			public void onOperationCompleted(ISessionFuture future) {
+				log.debug("Sent message operation completed [done={}, success={}, cause={}] for session {}", 
+						future.isDone(), future.isSuccess(), future.getCause(), future.getSession().getSessionId());
+			}
+		});
 	}
 
 	@Override
