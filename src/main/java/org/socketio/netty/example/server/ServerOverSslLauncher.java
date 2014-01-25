@@ -1,5 +1,7 @@
 package org.socketio.netty.example.server;
 
+import org.jboss.netty.logging.InternalLoggerFactory;
+import org.jboss.netty.logging.Slf4JLoggerFactory;
 import org.socketio.netty.SocketIOServer;
 import org.socketio.netty.example.ssl.SecureSslContextFactory;
 
@@ -12,6 +14,9 @@ public class ServerOverSslLauncher {
 	private static final String SOCKETIO_TRANSPORTS = "websocket,flashsocket,xhr-polling,jsonp-polling";
 	
 	public static void main(String[] args) {
+		// Set Netty logger
+		InternalLoggerFactory.setDefaultFactory(new Slf4JLoggerFactory());
+				
 		SocketIOServer socketioOverSSLServer = new SocketIOServer();
 		socketioOverSSLServer.setPort(SOCKETIO_PORT);
 		socketioOverSSLServer.setHeartbeatInterval(HEARTBEAT_INTERVAL);

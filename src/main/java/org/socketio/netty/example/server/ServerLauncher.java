@@ -1,5 +1,7 @@
 package org.socketio.netty.example.server;
 
+import org.jboss.netty.logging.InternalLoggerFactory;
+import org.jboss.netty.logging.Slf4JLoggerFactory;
 import org.socketio.netty.SocketIOServer;
 
 public class ServerLauncher {
@@ -11,6 +13,9 @@ public class ServerLauncher {
 	private static final String SOCKETIO_TRANSPORTS = "websocket,flashsocket,xhr-polling,jsonp-polling";
 	
 	public static void main(String[] args) {
+		// Set Netty logger
+		InternalLoggerFactory.setDefaultFactory(new Slf4JLoggerFactory());
+		
 		SocketIOServer socketioServer = new SocketIOServer();
 		socketioServer.setPort(SOCKETIO_PORT);
 		socketioServer.setTransports(SOCKETIO_TRANSPORTS);
