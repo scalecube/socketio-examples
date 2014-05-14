@@ -1,4 +1,4 @@
-SocketIo4Netty Examples
+SocketIo4j Examples
 =======================
 
-Examples for [SocketIo4Netty](https://github.com/socketIo4Netty/socketIo4Netty) project.
+Examples for [SocketIo4j](https://github.com/socketIo4Netty/socketIo4Netty) project.
