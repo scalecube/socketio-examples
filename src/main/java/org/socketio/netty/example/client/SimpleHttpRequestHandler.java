@@ -5,29 +5,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Set;
 
-import org.jboss.netty.buffer.ChannelBuffer;
-import org.jboss.netty.buffer.ChannelBuffers;
-import org.jboss.netty.channel.Channel;
-import org.jboss.netty.channel.ChannelFuture;
-import org.jboss.netty.channel.ChannelFutureListener;
-import org.jboss.netty.channel.ChannelHandlerContext;
-import org.jboss.netty.handler.codec.http.Cookie;
-import org.jboss.netty.handler.codec.http.CookieDecoder;
-import org.jboss.netty.handler.codec.http.CookieEncoder;
-import org.jboss.netty.handler.codec.http.DefaultHttpResponse;
-import org.jboss.netty.handler.codec.http.HttpHeaders;
-import org.jboss.netty.handler.codec.http.HttpRequest;
-import org.jboss.netty.handler.codec.http.HttpResponse;
-import org.jboss.netty.handler.codec.http.HttpResponseStatus;
-import org.jboss.netty.handler.codec.http.HttpVersion;
-import org.jboss.netty.handler.codec.http.QueryStringDecoder;
-import org.jboss.netty.handler.codec.oneone.OneToOneDecoder;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.MessageToMessageDecoder;
+import io.netty.handler.codec.http.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SimpleHttpRequestHandler extends OneToOneDecoder {
+public class SimpleHttpRequestHandler extends MessageToMessageDecoder {
 	
 	private static final Logger log = LoggerFactory.getLogger(SimpleHttpRequestHandler.class);
 	private static final String BASE_PATH = "/WEB-INF";
@@ -38,23 +31,6 @@ public class SimpleHttpRequestHandler extends OneToOneDecoder {
 		this.appPath = basePath;
 	}
 
-	@Override
-	protected Object decode(final ChannelHandlerContext ctx, final Channel channel, final Object msg) throws Exception {
-		if (msg instanceof HttpRequest) {
-			HttpRequest request = (HttpRequest) msg;
-			QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
-			String path = queryDecoder.getPath();
-			if (request.getUri().contains(appPath)) {
-				StringBuilder content = getResourceContent(path);
-				if (content != null) {
-					writeResponse(ctx.getChannel(), request, content);
-					return null;
-				}
-			}
-		}
-		return msg;
-	}
-	
 	private StringBuilder getResourceContent(final String path) throws IOException {
 		log.info("Requested Resource: {}", path);
 		URL resourceFile = getClass().getResource(BASE_PATH + path);
@@ -73,15 +49,14 @@ public class SimpleHttpRequestHandler extends OneToOneDecoder {
 	
 	public void writeResponse(final Channel channel, final HttpRequest request,final StringBuilder responseContent ) {
 		// Convert the response content to a ChannelBuffer.
-		ChannelBuffer buf = ChannelBuffers.copiedBuffer(responseContent, Charset.forName("UTF-8"));
+		ByteBuf buf = Unpooled.copiedBuffer(responseContent, Charset.forName("UTF-8"));
 		responseContent.setLength(0);
 		
 		// Decide whether to close the connection or not.
 		final boolean close = isClose(request);
 
 		// Build the response object.
-		HttpResponse response = new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
-		response.setContent(buf);
+		FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, buf);
 		response.headers().set(HttpHeaders.Names.CONTENT_TYPE, "text/html; charset=UTF-8");
 
 		if (!close) {
@@ -92,15 +67,10 @@ public class SimpleHttpRequestHandler extends OneToOneDecoder {
 
 		String cookieString = request.headers().get(HttpHeaders.Names.COOKIE);
 		if (cookieString != null) {
-			CookieDecoder cookieDecoder = new CookieDecoder();
-			Set<Cookie> cookies = cookieDecoder.decode(cookieString);
+			Set<Cookie> cookies = CookieDecoder.decode(cookieString);
 			if (!cookies.isEmpty()) {
 				// Reset the cookies if necessary.
-				CookieEncoder cookieEncoder = new CookieEncoder(true);
-				for (Cookie cookie : cookies) {
-					cookieEncoder.addCookie(cookie);
-				}
-				response.headers().add(HttpHeaders.Names.SET_COOKIE, cookieEncoder.encode());
+				response.headers().add(HttpHeaders.Names.SET_COOKIE, ServerCookieEncoder.encode(cookies));
 			}
 		}
 
@@ -120,4 +90,20 @@ public class SimpleHttpRequestHandler extends OneToOneDecoder {
 			!HttpHeaders.Values.KEEP_ALIVE.equalsIgnoreCase(request.headers().get(HttpHeaders.Names.CONNECTION));
 	}
 
+    @Override
+    protected void decode(ChannelHandlerContext ctx, Object msg, List out) throws Exception {
+        if (msg instanceof HttpRequest) {
+            HttpRequest request = (HttpRequest) msg;
+            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+            String path = queryDecoder.path();
+            if (request.getUri().contains(appPath)) {
+                StringBuilder content = getResourceContent(path);
+                if (content != null) {
+                    writeResponse(ctx.channel(), request, content);
+                    return;
+                }
+            }
+        }
+        out.add(msg);
+    }
 }
