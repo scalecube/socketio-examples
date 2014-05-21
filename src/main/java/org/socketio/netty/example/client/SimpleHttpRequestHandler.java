@@ -75,7 +75,7 @@ public class SimpleHttpRequestHandler extends MessageToMessageDecoder {
 		}
 
 		// Write the response.
-		ChannelFuture future = channel.write(response);
+		ChannelFuture future = channel.writeAndFlush(response);
 
 		// Close the connection after the write operation is done if necessary.
 		if (close) {
