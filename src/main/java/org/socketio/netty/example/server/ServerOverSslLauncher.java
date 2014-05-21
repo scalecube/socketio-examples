@@ -1,7 +1,7 @@
 package org.socketio.netty.example.server;
 
-import org.jboss.netty.logging.InternalLoggerFactory;
-import org.jboss.netty.logging.Slf4JLoggerFactory;
+import io.netty.util.internal.logging.InternalLoggerFactory;
+import io.netty.util.internal.logging.Slf4JLoggerFactory;
 import org.socketio.netty.SocketIOServer;
 import org.socketio.netty.example.ssl.SecureSslContextFactory;
 
