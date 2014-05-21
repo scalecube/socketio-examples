@@ -11,16 +11,13 @@ import java.util.Set;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.*;
 import io.netty.handler.codec.MessageToMessageDecoder;
 import io.netty.handler.codec.http.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SimpleHttpRequestHandler extends MessageToMessageDecoder {
+public class SimpleHttpRequestHandler extends ChannelInboundHandlerAdapter {
 	
 	private static final Logger log = LoggerFactory.getLogger(SimpleHttpRequestHandler.class);
 	private static final String BASE_PATH = "/WEB-INF";
@@ -91,7 +88,7 @@ public class SimpleHttpRequestHandler extends MessageToMessageDecoder {
 	}
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, Object msg, List out) throws Exception {
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (msg instanceof HttpRequest) {
             HttpRequest request = (HttpRequest) msg;
             QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
@@ -104,6 +101,6 @@ public class SimpleHttpRequestHandler extends MessageToMessageDecoder {
                 }
             }
         }
-        out.add(msg);
+        super.channelRead(ctx, msg);
     }
 }
