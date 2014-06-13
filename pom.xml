@@ -14,7 +14,7 @@
 		<dependency>
 			<groupId>com.github.socketIo4Netty</groupId>
 			<artifactId>socketIo4Netty</artifactId>
-			<version>1.0.16-SNAPSHOT</version>
+			<version>1.0.16</version>
 	    </dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -48,7 +48,6 @@
 					</execution>
 				</executions>
 				<configuration>
-					<linkXref>true</linkXref>
 					<minimumTokens>100</minimumTokens>
 					<targetJdk>1.6</targetJdk>
 					<verbose>true</verbose>
@@ -61,7 +60,6 @@
 					<source>1.6</source>
 					<target>1.6</target>
 					<optimize>true</optimize>
-					<showDeprecations>true</showDeprecations>
 				</configuration>
 			</plugin>
 		</plugins>
