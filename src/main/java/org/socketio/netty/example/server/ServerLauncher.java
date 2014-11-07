@@ -23,7 +23,7 @@ public class ServerLauncher {
                 .setHeartbeatInterval(HEARTBEAT_INTERVAL)
                 .setHeartbeatTimeout(HEARTBEAT_TIMEOUT)
                 .setCloseTimeout(CLOSE_TIMEOUT)
-                .setEventExecutorEnabled(false);
+                .setEventExecutorEnabled(true);
 
 		SocketIOServer socketioServer = new SocketIOServer(configurationBuilder.build());
 		socketioServer.setListener(new EchoSocketIOListener());
