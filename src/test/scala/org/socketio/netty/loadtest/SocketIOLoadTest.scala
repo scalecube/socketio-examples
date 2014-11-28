@@ -2,6 +2,7 @@ package org.socketio.netty.loadtest
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
+import io.gatling.core.session.Expression
 
 import scala.concurrent.duration._
 
@@ -20,20 +21,18 @@ class SocketIOLoadTest extends Simulation {
   val userScenario = {
     scenario("Socket.IO Load Test")
       .exec(http("Handshake")
-        .get("/socket.io/1/").queryParam("t", System.currentTimeMillis())
-        .check(regex("(.+?):").saveAs("sessionId"))
-      )
+      .get("/socket.io/1/").queryParam("t", System.currentTimeMillis())
+      .check(regex("(.+?):").saveAs("sessionId")))
       .exec(ws("Open WebSocket")
-        .open(wsURL)
-      )
+      .open(wsURL))
       .pause(1 second)
-      .repeat(24) {
-        exec(ws("Send Heartbeat").sendText(heartbeatResponse))
-        .repeat(20) {
+      .during(3 minutes, "m") {
+        exec(ws("Send Heartbeat")
+        .sendText(heartbeatResponse))
+        .during(20 seconds, "n") {
           exec(ws("Send Hello Request")
-            .sendText("3:1::Hello World!")
-            .check(wsAwait.within(1 second).until(1).regex(".*Hello World.*"))
-          )
+          .sendText("3:1::Hello Request Number ${m}-${n}")
+          .check(wsAwait.within(900 milliseconds).until(1).regex(".*Hello Request Number ${m}-${n}.*")))
           .pause(1 second)
         }
       }
@@ -43,21 +42,6 @@ class SocketIOLoadTest extends Simulation {
 
   //setUp(userScenario.inject(atOnceUsers(1)).protocols(httpConf))
   //setUp(userScenario.inject(atOnceUsers(10)).protocols(httpConf))
-  setUp(userScenario.inject(rampUsers(5000) over (3 minutes)).protocols(httpConf))
-
-
-
-
-  //setUp(usersScn.inject(atOnceUsers(2000)).protocols(httpConf))
-  //setUp(usersScn.inject(atOnceUsers(5000)).protocols(httpConf))
-  //setUp(usersScn.inject(constantUsersPerSec(220) during(10 minutes)).protocols(httpConf))
-
-  //setUp(usersScn.inject(
-  //  rampUsers(1000) over(60 seconds))
-  //).protocols(httpConf)
-
-  //setUp(userScenario.inject(
-  //  splitUsers(72000) into (atOnceUsers(40)) separatedBy (3000 milliseconds))
-  //).protocols(httpConf)
+  setUp(userScenario.inject(rampUsers(15000) over (9 minutes)).protocols(httpConf))
 
 }
