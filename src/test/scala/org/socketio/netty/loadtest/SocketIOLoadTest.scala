@@ -20,30 +20,30 @@ class SocketIOLoadTest extends Simulation {
   val userScenario = {
     scenario("Socket.IO Load Test")
       .exec(http("Handshake")
-      .get("/socket.io/1/").queryParam("t", System.currentTimeMillis())
-      .check(regex("(.+?):").saveAs("sessionId"))
+        .get("/socket.io/1/").queryParam("t", System.currentTimeMillis())
+        .check(regex("(.+?):").saveAs("sessionId"))
       )
       .exec(ws("Open WebSocket")
-      .open(wsURL)
+        .open(wsURL)
       )
       .pause(1 second)
       .repeat(24) {
-      exec(ws("Send Heartbeat").sendText(heartbeatResponse))
+        exec(ws("Send Heartbeat").sendText(heartbeatResponse))
         .repeat(20) {
-        exec(ws("Send Hello Request")
-          .sendText("3:1::Hello World!")
-          .check(wsAwait.within(1 second).until(1).regex(".*Hello World.*"))
-        )
+          exec(ws("Send Hello Request")
+            .sendText("3:1::Hello World!")
+            .check(wsAwait.within(1 second).until(1).regex(".*Hello World.*"))
+          )
           .pause(1 second)
+        }
       }
-    }
       .pause(1 second)
       .exec(ws("Close WebSocket").close)
   }
 
   //setUp(userScenario.inject(atOnceUsers(1)).protocols(httpConf))
   //setUp(userScenario.inject(atOnceUsers(10)).protocols(httpConf))
-  setUp(userScenario.inject(rampUsers(5000) over(3 minutes)).protocols(httpConf))
+  setUp(userScenario.inject(rampUsers(5000) over (3 minutes)).protocols(httpConf))
 
 
 
