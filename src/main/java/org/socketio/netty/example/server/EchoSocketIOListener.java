@@ -11,18 +11,18 @@ public class EchoSocketIOListener implements ISocketIOListener {
 	
 	@Override
 	public void onConnect(final ISession client) {
-		log.info("{}/{}: onConnect", client.getSessionId(), client.getLocalPort());
+		log.debug("{}/{}: onConnect", client.getSessionId(), client.getLocalPort());
 	}
 
 	@Override
 	public void onJsonObject(final ISession client, final Object obj) {
-		log.info("{}/{}: onJsonObject: {}", client.getSessionId(), client.getLocalPort(), obj);
+		log.debug("{}/{}: onJsonObject: {}", client.getSessionId(), client.getLocalPort(), obj);
 		processReceivedMessage(client, obj.toString());
 	}
 
 	@Override
 	public void onMessage(final ISession client, final String message) {
-		log.info("{}/{}: onMessage: {}", client.getSessionId(), client.getLocalPort(), message);
+		log.debug("{}/{}: onMessage: {}", client.getSessionId(), client.getLocalPort(), message);
 		processReceivedMessage(client, message);
 	}
 	
@@ -32,7 +32,7 @@ public class EchoSocketIOListener implements ISocketIOListener {
 
 	@Override
 	public void onDisconnect(final ISession client) {
-		log.info("{}/{}: onDisconnect", client.getSessionId(), client.getLocalPort());
+		log.debug("{}/{}: onDisconnect", client.getSessionId(), client.getLocalPort());
 	}
 
 }
