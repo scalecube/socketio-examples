@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <RollingRandomAccessFile name="server" fileName="server.log" filePattern="server-%d_%i.log.gz" immediateFlush="false">
+            <ThresholdFilter level="INFO"/>
+            <PatternLayout>
+                <pattern>%level{length=1} %date{MMdd-HHmm:ss,SSS} %logger{1.} %message [%thread]%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="server" />
+        </Root>
+    </Loggers>
+</Configuration>
