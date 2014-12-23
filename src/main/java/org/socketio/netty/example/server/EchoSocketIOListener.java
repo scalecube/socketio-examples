@@ -1,5 +1,7 @@
 package org.socketio.netty.example.server;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.socketio.netty.ISession;
@@ -16,21 +18,10 @@ public class EchoSocketIOListener implements ISocketIOListener {
 	}
 
 	@Override
-	public void onJsonObject(final ISession client, final Object obj) {
-		if (log.isDebugEnabled())
-			log.debug("{}/{}: onJsonObject: {}", client.getSessionId(), client.getLocalPort(), obj);
-		processReceivedMessage(client, obj.toString());
-	}
-
-	@Override
-	public void onMessage(final ISession client, final String message) {
+	public void onMessage(final ISession client, final ByteBuf message) {
 		if (log.isDebugEnabled())
 			log.debug("{}/{}: onMessage: {}", client.getSessionId(), client.getLocalPort(), message);
-		processReceivedMessage(client, message);
-	}
-	
-	private void processReceivedMessage(final ISession client, final String message) {
-        client.send(message);
+		client.send(message);
 	}
 
 	@Override
