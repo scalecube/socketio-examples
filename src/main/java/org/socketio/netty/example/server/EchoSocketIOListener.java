@@ -11,18 +11,21 @@ public class EchoSocketIOListener implements ISocketIOListener {
 	
 	@Override
 	public void onConnect(final ISession client) {
-		log.debug("{}/{}: onConnect", client.getSessionId(), client.getLocalPort());
+		if (log.isDebugEnabled())
+			log.debug("{}/{}: onConnect", client.getSessionId(), client.getLocalPort());
 	}
 
 	@Override
 	public void onJsonObject(final ISession client, final Object obj) {
-		log.debug("{}/{}: onJsonObject: {}", client.getSessionId(), client.getLocalPort(), obj);
+		if (log.isDebugEnabled())
+			log.debug("{}/{}: onJsonObject: {}", client.getSessionId(), client.getLocalPort(), obj);
 		processReceivedMessage(client, obj.toString());
 	}
 
 	@Override
 	public void onMessage(final ISession client, final String message) {
-		log.debug("{}/{}: onMessage: {}", client.getSessionId(), client.getLocalPort(), message);
+		if (log.isDebugEnabled())
+			log.debug("{}/{}: onMessage: {}", client.getSessionId(), client.getLocalPort(), message);
 		processReceivedMessage(client, message);
 	}
 	
@@ -32,7 +35,8 @@ public class EchoSocketIOListener implements ISocketIOListener {
 
 	@Override
 	public void onDisconnect(final ISession client) {
-		log.debug("{}/{}: onDisconnect", client.getSessionId(), client.getLocalPort());
+		if (log.isDebugEnabled())
+			log.debug("{}/{}: onDisconnect", client.getSessionId(), client.getLocalPort());
 	}
 
 }
