@@ -38,7 +38,7 @@ class SocketIOLoadTest extends Simulation {
       }
       .pause(1 second)
       .exec(ws("Close WebSocket").close)
-    }Cosmetic
+    }
 
   //setUp(userScenario.inject(rampUsers(4500) over (9 minutes)).protocols(httpConf))
   setUp(userScenario.inject(rampUsers(21000) over (9 minutes)).protocols(httpConf))
