@@ -27,10 +27,10 @@ class SocketIOLoadTest extends Simulation {
       .open(wsURL))
       .pause(1 second)
       .during(3 minutes, "m") {
-        exec(ws("Send Heartbeat")
+      exec(ws("Send Heartbeat")
         .sendText(heartbeatResponse))
         .during(20 seconds, "n") {
-          exec(ws("Send Hello Request")
+        exec(ws("Send Hello Request")
           .sendText("3:1::Hello Request Number ${m}-${n}")
           .check(wsAwait.within(900 milliseconds).until(1).regex(".*Hello Request Number ${m}-${n}.*")))
           .pause(1 second)
@@ -38,10 +38,9 @@ class SocketIOLoadTest extends Simulation {
       }
       .pause(1 second)
       .exec(ws("Close WebSocket").close)
-  }
+    }
 
-  //setUp(userScenario.inject(atOnceUsers(1)).protocols(httpConf))
-  //setUp(userScenario.inject(atOnceUsers(10)).protocols(httpConf))
-  setUp(userScenario.inject(rampUsers(15000) over (9 minutes)).protocols(httpConf))
+  //setUp(userScenario.inject(rampUsers(4500) over (9 minutes)).protocols(httpConf))
+  setUp(userScenario.inject(rampUsers(21000) over (9 minutes)).protocols(httpConf))
 
 }
