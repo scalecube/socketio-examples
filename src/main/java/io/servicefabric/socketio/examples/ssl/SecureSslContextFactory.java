@@ -1,4 +1,4 @@
-package org.socketio.netty.example.ssl;
+package io.servicefabric.socketio.examples.ssl;
 
 import java.security.KeyStore;
 import java.security.Security;

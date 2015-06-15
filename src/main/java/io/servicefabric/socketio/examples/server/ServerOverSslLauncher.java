@@ -1,9 +1,9 @@
-package org.socketio.netty.example.server;
+package io.servicefabric.socketio.examples.server;
 
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import io.netty.util.internal.logging.Slf4JLoggerFactory;
 import org.socketio.netty.SocketIOServer;
-import org.socketio.netty.example.ssl.SecureSslContextFactory;
+import io.servicefabric.socketio.examples.ssl.SecureSslContextFactory;
 
 public class ServerOverSslLauncher {
 	

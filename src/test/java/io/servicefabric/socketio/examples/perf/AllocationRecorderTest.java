@@ -1,4 +1,4 @@
-package org.socketio.netty.example.perf;
+package io.servicefabric.socketio.examples.perf;
 
 import java.lang.instrument.UnmodifiableClassException;
 import com.google.monitoring.runtime.instrumentation.ConstructorInstrumenter;

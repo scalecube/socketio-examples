@@ -1,8 +1,8 @@
-package org.socketio.netty.example.client;
+package io.servicefabric.socketio.examples.client;
 
 import javax.net.ssl.SSLContext;
 
-import org.socketio.netty.example.ssl.SecureSslContextFactory;
+import io.servicefabric.socketio.examples.ssl.SecureSslContextFactory;
 
 public class ClientOverSslLauncher {
 	

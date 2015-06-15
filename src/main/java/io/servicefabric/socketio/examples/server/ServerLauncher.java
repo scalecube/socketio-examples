@@ -1,4 +1,4 @@
-package org.socketio.netty.example.server;
+package io.servicefabric.socketio.examples.server;
 
 
 import io.netty.util.internal.logging.InternalLoggerFactory;

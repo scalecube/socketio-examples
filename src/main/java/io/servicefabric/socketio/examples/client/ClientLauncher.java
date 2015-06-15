@@ -1,4 +1,4 @@
-package org.socketio.netty.example.client;
+package io.servicefabric.socketio.examples.client;
 
 
 public class ClientLauncher {

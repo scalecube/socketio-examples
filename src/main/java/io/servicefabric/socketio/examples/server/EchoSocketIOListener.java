@@ -1,7 +1,6 @@
-package org.socketio.netty.example.server;
+package io.servicefabric.socketio.examples.server;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.socketio.netty.ISession;

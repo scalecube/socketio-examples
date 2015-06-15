@@ -1,4 +1,4 @@
-package org.socketio.netty.example.ssl;
+package io.servicefabric.socketio.examples.ssl;
 
 import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyStore;

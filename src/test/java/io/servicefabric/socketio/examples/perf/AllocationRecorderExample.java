@@ -1,4 +1,4 @@
-package org.socketio.netty.example.perf;
+package io.servicefabric.socketio.examples.perf;
 
 import com.google.monitoring.runtime.instrumentation.AllocationRecorder;
 import com.google.monitoring.runtime.instrumentation.Sampler;
