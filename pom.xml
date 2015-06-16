@@ -14,9 +14,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.github.socketIo4Netty</groupId>
-			<artifactId>socketIo4Netty</artifactId>
-			<version>1.1.2</version>
+			<groupId>io.servicefabric</groupId>
+			<artifactId>socketio</artifactId>
+			<version>2.0.0</version>
 	    </dependency>
 
         <!-- Binding for Log4J -->

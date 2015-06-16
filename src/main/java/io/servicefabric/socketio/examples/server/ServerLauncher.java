@@ -3,8 +3,8 @@ package io.servicefabric.socketio.examples.server;
 
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import io.netty.util.internal.logging.Slf4JLoggerFactory;
-import org.socketio.netty.ServerConfiguration;
-import org.socketio.netty.SocketIOServer;
+import io.servicefabric.socketio.ServerConfiguration;
+import io.servicefabric.socketio.SocketIOServer;
 
 public class ServerLauncher {
 	

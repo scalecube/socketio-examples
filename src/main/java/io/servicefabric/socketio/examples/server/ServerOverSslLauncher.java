@@ -2,7 +2,7 @@ package io.servicefabric.socketio.examples.server;
 
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import io.netty.util.internal.logging.Slf4JLoggerFactory;
-import org.socketio.netty.SocketIOServer;
+import io.servicefabric.socketio.SocketIOServer;
 import io.servicefabric.socketio.examples.ssl.SecureSslContextFactory;
 
 public class ServerOverSslLauncher {

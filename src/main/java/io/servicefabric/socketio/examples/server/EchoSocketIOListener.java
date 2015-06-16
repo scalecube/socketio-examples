@@ -1,10 +1,10 @@
 package io.servicefabric.socketio.examples.server;
 
 import io.netty.buffer.ByteBuf;
+import io.servicefabric.socketio.ISession;
+import io.servicefabric.socketio.ISocketIOListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.socketio.netty.ISession;
-import org.socketio.netty.ISocketIOListener;
 
 public class EchoSocketIOListener implements ISocketIOListener {
 	
