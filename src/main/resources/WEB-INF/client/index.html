@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Socket.IO Client</title>
-	<style>
-		body { 
-			padding: 10px;
-		}
-		#console { 
-			list-style-type:none; 
-			width: 460px; 
-			height: 320px; 
-			overflow: auto; 
-			border:1px solid #999;
-			padding: 10px;
-		}
-		#console li { 
-			border-bottom: 1px solid #ccc;
-			padding-bottom: 2px;
-			margin-bottom: 5px;
-		}
-		.connect-msg {color:green;}
-		.disconnect-msg {color:red;}
-		.send-msg {color:#888}
-		.address-input {width: 480px;}
-		.sendform-input {width: 480px;}
-		.sendform-submit {width: 100px;} 
-		.time {}
-	</style>
-	
-	<script src="js/socket.io/socket.io.js" charset="utf-8"></script>
-	<script src="js/moment.min.js"></script>
-	
-	<script>
+    <title>Socket.IO Client</title>
+    <style>
+        body {
+        padding: 10px;
+        }
+        #console {
+        list-style-type:none;
+        width: 460px;
+        height: 320px;
+        overflow: auto;
+        border:1px solid #999;
+        padding: 10px;
+        }
+        #console li {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 2px;
+        margin-bottom: 5px;
+        }
+        .connect-msg {color:green;}
+        .disconnect-msg {color:red;}
+        .send-msg {color:#888}
+        .address-input {width: 480px;}
+        .sendform-input {width: 480px;}
+        .sendform-submit {width: 100px;}
+        .time {}
+    </style>
+
+    <script src="js/socket.io/socket.io.js" charset="utf-8"></script>
+    <script src="js/moment.min.js"></script>
+
+    <script>
 		// Create SocketIO instance
 		//WEB_SOCKET_SWF_LOCATION = "js/socket.io/WebSocketMainInsecure.swf";
 		//WEB_SOCKET_SWF_LOCATION = "js/socket.io/WebSocketMain.swf";
@@ -105,37 +105,38 @@
 				log('<span class="disconnect-msg">Disconnected</span>');
 			});
 		}
-	</script>
+
+    </script>
 </head>
 
 <body>
-	
-	<h1>Socket.IO Client</h1>
-	
-    <form method="POST" name="sendform" action="">            
-    	Address:<br>
-    	<input class="address-input" type="text" name="address" value='localhost:4810' /><br>
-    	<input type="checkbox" name="ssl" />SSL
-    	<input type="checkbox" name="websocket" checked="checked" />WebSocket
-    	<input type="checkbox" name="flashsocket" checked="checked" />FlashSocket
-    	<input type="checkbox" name="xhrpolling" checked="checked" />XHR-Polling
-    	<input type="checkbox" name="jsonppolling" checked="checked" />JSONP-Polling<br>
-    	<input type="BUTTON" value="Connect" onClick="connect()" class="sendform-submit"/>
-        <input type="BUTTON" value="Disconnect" onClick="disconnect()" class="sendform-submit"/><br>
-       	Message:<br>      
-        <input class="sendform-input" type="text" name="msg" value='{"greetings":"Hello World!"}'/><br>
-        Count:<br>
-        <input class="sendform-input" type="text" name="messagecount" value='1' /><br>
-        <input type="BUTTON" value="Send" onClick="submitSendForm()" class="sendform-submit"/>
-    </form>
-    
-	<p>
-		Console:
-	</p>
-	
-	<ul id="console">
-	</ul>
-	
+
+<h1>Socket.IO Client</h1>
+
+<form method="POST" name="sendform" action="">
+    Address:<br>
+    <input class="address-input" type="text" name="address" value='localhost:4810'/><br>
+    <input type="checkbox" name="ssl"/>SSL
+    <input type="checkbox" name="websocket" checked="checked"/>WebSocket
+    <input type="checkbox" name="flashsocket" checked="checked"/>FlashSocket
+    <input type="checkbox" name="xhrpolling" checked="checked"/>XHR-Polling
+    <input type="checkbox" name="jsonppolling" checked="checked"/>JSONP-Polling<br>
+    <input type="BUTTON" value="Connect" onClick="connect()" class="sendform-submit"/>
+    <input type="BUTTON" value="Disconnect" onClick="disconnect()" class="sendform-submit"/><br>
+    Message:<br>
+    <input class="sendform-input" type="text" name="msg" value='{"greetings":"Hello World!"}'/><br>
+    Count:<br>
+    <input class="sendform-input" type="text" name="messagecount" value='1'/><br>
+    <input type="BUTTON" value="Send" onClick="submitSendForm()" class="sendform-submit"/>
+</form>
+
+<p>
+    Console:
+</p>
+
+<ul id="console">
+</ul>
+
 </body>
 
 </html>

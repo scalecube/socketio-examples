@@ -1,8 +1,7 @@
-package io.servicefabric.socketio.loadtest
+package io.scalecube.socketio.loadtest
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import io.gatling.core.session.Expression
 
 import scala.concurrent.duration._
 

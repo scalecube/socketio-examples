@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <Appenders>
-        <RollingRandomAccessFile name="server" fileName="server.log" filePattern="server-%d_%i.log.gz" immediateFlush="false">
+        <RollingRandomAccessFile name="server" fileName="server.log" filePattern="server-%d_%i.log.gz"
+                                 immediateFlush="false">
             <ThresholdFilter level="INFO"/>
             <PatternLayout>
                 <pattern>%level{length=1} %date{MMdd-HHmm:ss,SSS} %logger{1.} %message [%thread]%n</pattern>
@@ -15,7 +16,7 @@
     </Appenders>
     <Loggers>
         <Root level="INFO">
-            <AppenderRef ref="server" />
+            <AppenderRef ref="server"/>
         </Root>
     </Loggers>
 </Configuration>
