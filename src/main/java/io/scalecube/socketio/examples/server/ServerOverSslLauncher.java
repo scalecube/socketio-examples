@@ -2,8 +2,9 @@ package io.scalecube.socketio.examples.server;
 
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import io.netty.util.internal.logging.Slf4JLoggerFactory;
+import io.scalecube.socketio.ServerConfiguration;
 import io.scalecube.socketio.examples.ssl.SecureSslContextFactory;
-import io.servicefabric.socketio.SocketIOServer;
+import io.scalecube.socketio.SocketIOServer;
 
 public class ServerOverSslLauncher {
 
@@ -17,13 +18,16 @@ public class ServerOverSslLauncher {
     // Set Netty logger
     InternalLoggerFactory.setDefaultFactory(new Slf4JLoggerFactory());
 
-    SocketIOServer socketioOverSSLServer = new SocketIOServer();
-    socketioOverSSLServer.setPort(SOCKETIO_PORT);
-    socketioOverSSLServer.setHeartbeatInterval(HEARTBEAT_INTERVAL);
-    socketioOverSSLServer.setHeartbeatTimeout(HEARTBEAT_TIMEOUT);
-    socketioOverSSLServer.setCloseTimeout(CLOSE_TIMEOUT);
-    socketioOverSSLServer.setTransports(SOCKETIO_TRANSPORTS);
-    socketioOverSSLServer.setSslContext(SecureSslContextFactory.getServerContext());
+    ServerConfiguration configuration = ServerConfiguration.builder()
+        .port(SOCKETIO_PORT)
+        .heartbeatInterval(HEARTBEAT_INTERVAL)
+        .heartbeatTimeout(HEARTBEAT_TIMEOUT)
+        .closeTimeout(CLOSE_TIMEOUT)
+        .transports(SOCKETIO_TRANSPORTS)
+        .sslContext(SecureSslContextFactory.getServerContext())
+        .build();
+
+    SocketIOServer socketioOverSSLServer = SocketIOServer.newInstance(configuration);
     socketioOverSSLServer.setListener(new EchoSocketIOListener());
     socketioOverSSLServer.start();
   }

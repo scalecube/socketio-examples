@@ -3,8 +3,8 @@ package io.scalecube.socketio.examples.server;
 
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import io.netty.util.internal.logging.Slf4JLoggerFactory;
-import io.servicefabric.socketio.ServerConfiguration;
-import io.servicefabric.socketio.SocketIOServer;
+import io.scalecube.socketio.ServerConfiguration;
+import io.scalecube.socketio.SocketIOServer;
 
 public class ServerLauncher {
 
@@ -17,17 +17,17 @@ public class ServerLauncher {
   public static void main(String[] args) {
     // Set Netty logger
     InternalLoggerFactory.setDefaultFactory(new Slf4JLoggerFactory());
-    ServerConfiguration.Builder configurationBuilder = new ServerConfiguration.Builder();
-    configurationBuilder.setPort(SOCKETIO_PORT)
-        .setTransports(SOCKETIO_TRANSPORTS)
-        .setHeartbeatInterval(HEARTBEAT_INTERVAL)
-        .setHeartbeatTimeout(HEARTBEAT_TIMEOUT)
-        .setCloseTimeout(CLOSE_TIMEOUT)
-        .setEventExecutorEnabled(true);
 
-    SocketIOServer socketioServer = new SocketIOServer(configurationBuilder.build());
+    ServerConfiguration configuration = ServerConfiguration.builder()
+        .port(SOCKETIO_PORT)
+        .transports(SOCKETIO_TRANSPORTS)
+        .heartbeatInterval(HEARTBEAT_INTERVAL)
+        .heartbeatTimeout(HEARTBEAT_TIMEOUT)
+        .closeTimeout(CLOSE_TIMEOUT)
+        .eventExecutorEnabled(true)
+        .build();
+    SocketIOServer socketioServer = SocketIOServer.newInstance(configuration);
     socketioServer.setListener(new EchoSocketIOListener());
-
     socketioServer.start();
   }
 

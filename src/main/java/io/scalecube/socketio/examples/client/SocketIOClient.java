@@ -1,6 +1,5 @@
 package io.scalecube.socketio.examples.client;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +18,7 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.ssl.SslHandler;
-import io.servicefabric.socketio.pipeline.ResourceHandler;
+import io.scalecube.socketio.pipeline.ResourceHandler;
 
 
 public class SocketIOClient {
