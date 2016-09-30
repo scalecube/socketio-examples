@@ -1,8 +1,8 @@
 # Socket.IO Examples
 
-Examples for [Socket.IO Java Server](https://github.com/scalecube/socketio) project.
+Examples and demo client for [ScaleCube Socket.IO](https://github.com/scalecube/socketio) Java server project.
 
-In order to start demo client clone this project and execute following commands in the root directory:
+To launch demo client, clone this project and execute following commands in the root directory:
 
 ``` bash
 # Build project
