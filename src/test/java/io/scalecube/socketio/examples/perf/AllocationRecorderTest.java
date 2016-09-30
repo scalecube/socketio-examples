@@ -5,6 +5,11 @@ import com.google.monitoring.runtime.instrumentation.ConstructorInstrumenter;
 
 import java.lang.instrument.UnmodifiableClassException;
 
+/**
+ * It requires flag: -javaagent:path/to/allocation.jar
+ *
+ * See: https://github.com/google/allocation-instrumenter
+ */
 public class AllocationRecorderTest {
 
   static int count = 0;

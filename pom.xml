@@ -88,26 +88,13 @@
             <scope>test</scope>
         </dependency>
 
-        <!--
-        See: https://code.google.com/p/java-allocation-instrumenter/
-        It requires flag: -javaagent:path/to/allocation.jar
-        -->
+        <!-- Allocation Instrumenter -->
         <dependency>
             <groupId>com.google.code.java-allocation-instrumenter</groupId>
             <artifactId>java-allocation-instrumenter</artifactId>
-            <version>2.1</version>
+            <version>3.0.1</version>
             <scope>test</scope>
         </dependency>
-        <!-- alternative:
-        <dependency>
-            <groupId>com.github.socketIo4Netty</groupId>
-            <artifactId>com.google.monitoring.runtime.instrumentation</artifactId>
-            <scope>system</scope>
-            <version>1.0</version>
-            <systemPath>${project.basedir}/lib/allocation.jar</systemPath>
-            <optional>true</optional>
-        </dependency>
-        -->
     </dependencies>
 
     <build>
