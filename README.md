@@ -19,21 +19,19 @@ All commands listed below suppose that you run them from project root directory 
 
 ## Client
 
-To launch demo client run following command:
+To launch demo client at [http://localhost:9001/client/index.html](http://localhost:9001/client/index.html) run 
+following command:
 
 ``` bash
 java -cp target/socketio-examples-1.0.jar io.scalecube.socketio.examples.client.ClientLauncher
-```
+``` 
 
-Then open in browser link [http://localhost:9001/client/index.html](http://localhost:9001/client/index.html)
-
-To launch demo client with SSL (self-signed certificate) run following command:
+To launch demo client with SSL (self-signed certificate) at [https://localhost:9002/client/index.html](https://localhost:9002/client/index.html) 
+run following command:
  
 ``` bash
 java -cp target/socketio-examples-1.0.jar io.scalecube.socketio.examples.client.SslClientLauncher
-```
-
-And open in browser link [https://localhost:9002/client/index.html](https://localhost:9002/client/index.html)
+``` 
 
 Also you can use demo client from [http://scalecube.io/socketio/](http://scalecube.io/socketio/).
 
