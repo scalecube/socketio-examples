@@ -10,27 +10,27 @@ import io.scalecube.socketio.SocketIOListener;
 
 public class EchoListener implements SocketIOListener {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(EchoListener.class);
+  private static final Logger log = LoggerFactory.getLogger(EchoListener.class);
 
   @Override
   public void onConnect(final Session session) {
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Session connected: {}", session);
+    if (log.isDebugEnabled()) {
+      log.debug("Session connected: {}", session);
     }
   }
 
   @Override
   public void onMessage(final Session session, final ByteBuf message) {
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("{} received message: {}", session.getSessionId(), message.toString(CharsetUtil.UTF_8));
+    if (log.isDebugEnabled()) {
+      log.debug("{} received message: {}", session.getSessionId(), message.toString(CharsetUtil.UTF_8));
     }
     session.send(message);
   }
 
   @Override
   public void onDisconnect(final Session session) {
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Session disconnected: {}", session);
+    if (log.isDebugEnabled()) {
+      log.debug("Session disconnected: {}", session);
     }
   }
 

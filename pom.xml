@@ -146,7 +146,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>io.scalecube.socketio.examples.client.ClientLauncher</mainClass>
+                            <mainClass>io.scalecube.socketio.examples.server.ServerLauncher</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

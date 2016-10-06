@@ -72,7 +72,7 @@ public class SocketIOClient {
         pipeline.addLast("flashResources", resourceHandler);
 
         // Web application
-        pipeline.addLast("httpPage", new SimpleHttpRequestHandler(appPath));
+        pipeline.addLast("httpPage", new HttpRequestHandler(appPath));
 
       }
     });

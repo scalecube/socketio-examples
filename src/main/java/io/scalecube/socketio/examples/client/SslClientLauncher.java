@@ -4,7 +4,7 @@ import javax.net.ssl.SSLContext;
 
 import io.scalecube.socketio.examples.ssl.SecureSslContextFactory;
 
-public class ClientOverSslLauncher {
+public class SslClientLauncher {
 
   private static final int CLIENT_PORT = 9002;
   private static final String CLIENT_PATH = "/client";

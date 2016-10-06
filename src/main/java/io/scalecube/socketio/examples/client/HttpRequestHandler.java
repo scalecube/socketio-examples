@@ -28,14 +28,14 @@ import io.netty.handler.codec.http.HttpVersion;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.ServerCookieEncoder;
 
-public class SimpleHttpRequestHandler extends ChannelInboundHandlerAdapter {
+public class HttpRequestHandler extends ChannelInboundHandlerAdapter {
 
-  private static final Logger log = LoggerFactory.getLogger(SimpleHttpRequestHandler.class);
+  private static final Logger log = LoggerFactory.getLogger(HttpRequestHandler.class);
   private static final String BASE_PATH = "/WEB-INF";
 
   private final String appPath;
 
-  public SimpleHttpRequestHandler(final String basePath) {
+  public HttpRequestHandler(final String basePath) {
     this.appPath = basePath;
   }
 
