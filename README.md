@@ -24,14 +24,7 @@ following command:
 
 ``` bash
 java -cp target/socketio-examples-1.0.jar io.scalecube.socketio.examples.client.ClientLauncher
-``` 
-
-To launch demo client with SSL/TLS (self-signed certificate) at [https://localhost:9002/client/index.html](https://localhost:9002/client/index.html) 
-run following command:
- 
-``` bash
-java -cp target/socketio-examples-1.0.jar io.scalecube.socketio.examples.client.SslClientLauncher
-``` 
+```  
 
 Also you can use demo client from [http://scalecube.io/socketio/](http://scalecube.io/socketio/).
 
@@ -65,7 +58,7 @@ java -cp target/socketio-examples-1.0.jar io.scalecube.socketio.examples.server.
 ```
 
 **Note:** You will need to open in your browser [https://localhost:4815/socket.io/1/](https://localhost:4815/socket.io/1/) 
-and accept certificate to allow demo client connect to the started server.
+and accept self-signed SSL certificate to allow demo client connect to the started server.
 
 Examples how to configure and start Socket.IO server located at package 
 [io.scalecube.socketio.examples.server](https://github.com/scalecube/socketio-examples/tree/master/src/main/java/io/scalecube/socketio/examples/server).
