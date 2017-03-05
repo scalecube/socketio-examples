@@ -11,7 +11,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- main -->
-        <socketio.version>2.3.1</socketio.version>
+        <socketio.version>2.3.3</socketio.version>
         <netty.version>4.1.6.Final</netty.version>
         <slf4j.version>1.7.22</slf4j.version>
         <log4j.version>2.1</log4j.version>
